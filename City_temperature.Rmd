@@ -1,0 +1,9 @@
+Shiny Application and Reproducible Research
+============================================================
+#Assignment Information
+My assessed assignment has two parts. First, I will create a Shiny application and deploy it on Rstudio's servers. Second, I will use Slidify or Rstudio Presenter to prepare a reproducible pitch presentation about my application.
+
+#Problem Statement
+I have obtained an csv file called "temperature.csv", which shows the average temperature of 12 major Indian cities at 12pm for year 2017 from month January to May.
+
+As a user of the website, one can select any city and can view the histogram of the average temperature of that city starting from January Month.

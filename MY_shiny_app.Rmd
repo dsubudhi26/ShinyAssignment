@@ -1,0 +1,65 @@
+---
+title: "Shiny Application and Reproducible Research"
+author: "Debabrata Subudhiray"
+date: "6 May 2018"
+output: ioslides_presentation
+---
+
+## Assignment Instruction
+My assessed assignment has two parts. First, I will create a Shiny application and deploy it on Rstudio's servers. Second, I will use Slidify or Rstudio Presenter to prepare a reproducible pitch presentation about my application.
+
+## Problem Statement
+I have obtained an csv file called "temperature.csv", which shows the average temperature of 12 major Indian cities at 12pm for year 2017 from month January to May.
+
+As a user of the website, one can select any city and can view the histogram of the average temperature of that city starting from January Month.
+
+## ui.R code
+- Load Data
+
+citytemperature <- read.csv("./temperature.csv")
+
+
+- Use a fluid Bootstrap layout 
+fluidPage(     
+  
+  # Give the page a title 
+  titlePanel("Temperature by City"), 
+  
+  # Generate a row with a sidebar 
+  sidebarLayout(       
+    
+    
+    # Define the sidebar with one input 
+    sidebarPanel(p(strong("Documentation:",style="color:brown"), a("User Help Page",href="http://rpubs.com/dsubudhi26/citytemperature")), 
+                 selectInput("Region", "Region:",  
+                             choices=colnames(citytemperature)), 
+                 hr(), 
+                 helpText("Temperature Variation from Jan-May.") 
+    ), 
+    
+    # Create a spot for the barplot 
+    mainPanel( 
+      plotOutput("temperature")   
+    ) 
+    
+  ) 
+
+## server.R
+- Load Data
+
+citytemperature <- read.csv("./temperature.csv")
+
+- Define a server for the Shiny app 
+function(input, output) { 
+  
+  # Fill in the spot we created for a plot 
+  output$temperature <- renderPlot({ 
+    
+    # Render a barplot 
+    barplot(citytemperature[,input$Region],  
+            main=input$Region, 
+            ylab="Temperature in city in India", 
+            xlab="Month") 
+  })
+}
+
